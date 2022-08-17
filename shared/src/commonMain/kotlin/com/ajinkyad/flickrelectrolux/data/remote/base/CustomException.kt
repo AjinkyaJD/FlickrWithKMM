@@ -7,7 +7,7 @@ class CustomException(var httpResponse: HttpResponse, var errorResponse: String?
     companion object {
 
         fun getDefaultError(errorMessage: String?): ErrorResponse {
-            return ErrorResponse(1, "Something went wrong!!", false)
+            return ErrorResponse("Something went wrong!!", false)
         }
     }
 
