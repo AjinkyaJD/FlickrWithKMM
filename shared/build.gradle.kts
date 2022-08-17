@@ -5,7 +5,6 @@ plugins {
 }
 
 version = "1.0"
-
 kotlin {
     android()
     iosX64()
@@ -21,9 +20,19 @@ kotlin {
             baseName = "shared"
         }
     }
-    
+
     sourceSets {
-        val commonMain by getting
+        val ktorVersion = "2.1.0"
+
+        val commonMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("ch.qos.logback:logback-classic:1.2.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
