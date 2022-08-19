@@ -5,10 +5,11 @@ import com.ajinkyad.flickrelectrolux.data.remote.base.Either
 import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotoResponse
 import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotosResponse
 import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotosResponseWrapper
+import com.ajinkyad.flickrelectrolux.domain.entity.Photo
 import io.ktor.client.statement.*
 
 interface FlickrImageService {
 
     @Throws(Exception::class)
-    suspend fun fetchPhotos(): Either<CustomException, List<PhotoResponse>?>?
+    suspend fun fetchPhotos(): Either<CustomException, List<Photo>?>?
 }
