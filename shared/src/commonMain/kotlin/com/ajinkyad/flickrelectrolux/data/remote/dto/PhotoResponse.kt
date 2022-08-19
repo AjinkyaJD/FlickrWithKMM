@@ -5,11 +5,17 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PhotoResponse(
+    @SerialName("id")
     val id: String? = null,
+    @SerialName("owner")
     val owner: String? = null,
+    @SerialName("secret")
     val secret: String? = null,
+    @SerialName("server")
     val server: String? = null,
+    @SerialName("farm")
     val farm: Int = 0,
+    @SerialName("title")
     val title: String? = null,
     @SerialName("ispublic")
     val isPublic: Boolean = false,
