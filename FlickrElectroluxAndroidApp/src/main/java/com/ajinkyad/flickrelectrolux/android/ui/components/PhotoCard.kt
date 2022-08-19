@@ -12,11 +12,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
 import coil.compose.AsyncImage
+import coil.imageLoader
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
 import com.ajinkyad.flickrelectrolux.domain.entity.Photo
+
 
 @Composable
 fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
@@ -28,14 +31,18 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-        var imageDrawable: Drawable? = null
+        val context = LocalContext.current
+        val imageLoader = context.imageLoader
+
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
+            model = ImageRequest.Builder(context)
                 .data(photoItem.url)
                 .addHeader("Accept-Encoding", "keep-alive")
                 .crossfade(true)
                 .memoryCachePolicy(CachePolicy.ENABLED)
                 .diskCachePolicy(CachePolicy.ENABLED)
+                .diskCacheKey(photoItem.url)
+                .memoryCacheKey(photoItem.url)
                 .size(Size.ORIGINAL)
                 .build(),
             contentDescription = null,
@@ -45,28 +52,31 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
             onLoading = {
                 Log.e("ERR Loading - ", it.toString())
             },
-            onSuccess = { success ->
-                imageDrawable = success.result.drawable
-            },
             onError = {
                 Log.e("ERR Error - ", it.result.throwable.toString())
             },
             modifier = Modifier
                 .fillMaxSize()
                 .clickable(onClick = {
-                    getDownloadedImageFromCache(
-                        imageDrawable,
+                    getImagePathFromCache(
+                        imageLoader,
+                        photoItem,
                         tappedPhoto
                     )
                 })
                 .size(225.dp),
         )
+
     }
 }
 
-fun getDownloadedImageFromCache(
-    imageDrawable: Drawable?,
+fun getImagePathFromCache(
+    imageLoader: ImageLoader,
+    photoItem: Photo,
     tappedPhoto: (Drawable?) -> Unit
 ) {
-    tappedPhoto(imageDrawable)
+    // TODO - Handle better to make it fail safe
+    val cachedImagePath = imageLoader.diskCache?.get(photoItem.url!!)
+    val cachedImageDrawable = Drawable.createFromPath(cachedImagePath?.data.toString())
+    return tappedPhoto(cachedImageDrawable)
 }
