@@ -4,7 +4,7 @@ import com.ajinkyad.flickrelectrolux.data.remote.base.CustomException
 import com.ajinkyad.flickrelectrolux.data.remote.base.Either
 import com.ajinkyad.flickrelectrolux.data.remote.base.Failure
 import com.ajinkyad.flickrelectrolux.data.remote.base.Success
-import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotosResponse
+import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotoResponse
 import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotosResponseWrapper
 import com.ajinkyad.flickrelectrolux.shared.HttpBaseClient
 import com.ajinkyad.flickrelectrolux.utils.EndpointConfig
@@ -18,14 +18,15 @@ class FlickrImageServiceImpl() : FlickrImageService {
     //Create Http Client
     private var httpClient = HttpBaseClient().httpClient
 
-    override suspend fun fetchPhotos(): Either<CustomException, PhotosResponse?>? {
+    override suspend fun fetchPhotos(): Either<CustomException, List<PhotoResponse>?>? {
         return try {
-            val response: PhotosResponseWrapper = httpClient.get(EndpointConfig.PHOTOS_SEARCH_URL)
+            val response: List<PhotoResponse>? = httpClient.get(EndpointConfig.PHOTOS_SEARCH_URL)
             {
                 parameter(METHOD, "flickr.photos.search")
                 parameter(TAGS, "Electrolux")
-            }.body()
-            Success(response.photos)
+            }
+                .body<PhotosResponseWrapper>().photos?.photo?.filter { photoItem -> !photoItem.url.isNullOrEmpty() }
+            Success(response)
         } catch (e: Exception) {
             Failure(e as CustomException)
         }
