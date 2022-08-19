@@ -1,5 +1,6 @@
 package com.ajinkyad.flickrelectrolux.data.remote.dto
 
+import com.ajinkyad.flickrelectrolux.domain.entity.Photo
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -29,4 +30,11 @@ data class PhotoResponse(
     val height: Int = 0,
     @SerialName("width_m")
     val width: Int = 0
-)
+) {
+    fun toPhoto(): Photo {
+        return Photo(
+            id = id,
+            url = url
+        )
+    }
+}
