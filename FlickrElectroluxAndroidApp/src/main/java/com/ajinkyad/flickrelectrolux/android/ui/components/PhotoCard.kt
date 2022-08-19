@@ -1,6 +1,8 @@
 package com.ajinkyad.flickrelectrolux.android.ui.components
 
+import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -17,7 +19,7 @@ import coil.size.Size
 import com.ajinkyad.flickrelectrolux.domain.entity.Photo
 
 @Composable
-fun renderPhotoCard(photoItem: Photo) {
+fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
     Card(
         shape = RoundedCornerShape(8.dp),
         elevation = 8.dp,
@@ -26,7 +28,7 @@ fun renderPhotoCard(photoItem: Photo) {
             .fillMaxWidth()
             .wrapContentHeight()
     ) {
-
+        var imageDrawable: Drawable? = null
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(photoItem.url)
@@ -43,15 +45,28 @@ fun renderPhotoCard(photoItem: Photo) {
             onLoading = {
                 Log.e("ERR Loading - ", it.toString())
             },
-            onSuccess = {
-
+            onSuccess = { success ->
+                imageDrawable = success.result.drawable
             },
             onError = {
                 Log.e("ERR Error - ", it.result.throwable.toString())
             },
             modifier = Modifier
                 .fillMaxSize()
+                .clickable(onClick = {
+                    getDownloadedImageFromCache(
+                        imageDrawable,
+                        tappedPhoto
+                    )
+                })
                 .size(225.dp),
         )
     }
+}
+
+fun getDownloadedImageFromCache(
+    imageDrawable: Drawable?,
+    tappedPhoto: (Drawable?) -> Unit
+) {
+    tappedPhoto(imageDrawable)
 }
