@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PhotosResponseWrapper(
     @SerialName("photos")
-    val photos: PhotosResponse? = null
+    val photos: PhotosResponse? = null,
+    @SerialName("stat")
+    val stat: String? = null
 )

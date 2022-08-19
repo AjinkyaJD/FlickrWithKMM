@@ -18,11 +18,11 @@ data class PhotoResponse(
     @SerialName("title")
     val title: String? = null,
     @SerialName("ispublic")
-    val isPublic: Boolean = false,
+    val isPublic: Int = 0,
     @SerialName("isfriend")
-    val isFriend: Boolean = false,
+    val isFriend: Int = 0,
     @SerialName("isfamily")
-    val isFamily: Boolean = false,
+    val isFamily: Int = 0,
     @SerialName("url_m")
     val url: String? = null,
     @SerialName("height_m")
