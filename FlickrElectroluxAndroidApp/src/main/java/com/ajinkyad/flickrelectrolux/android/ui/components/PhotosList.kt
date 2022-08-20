@@ -1,6 +1,8 @@
 package com.ajinkyad.flickrelectrolux.android.ui.components
 
 import android.graphics.drawable.Drawable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,12 +17,17 @@ import com.ajinkyad.flickrelectrolux.domain.entity.Photo
 @Composable
 fun RenderPhotoList(photosViewModel: PhotosViewModel, tappedPhoto: (Drawable?) -> Unit) {
     val photos: List<Photo> by photosViewModel.photos.observeAsState(ArrayList())
-    LazyColumn(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxWidth()
+    Column(
+        modifier = Modifier.fillMaxSize(),
     ) {
-        items(photos) { photoItem ->
-            RenderPhotoCard(photoItem = photoItem, tappedPhoto = tappedPhoto)
+        searchInputField(photosViewModel = photosViewModel)
+        LazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            items(photos) { photoItem ->
+                RenderPhotoCard(photoItem = photoItem, tappedPhoto = tappedPhoto)
+            }
         }
     }
 

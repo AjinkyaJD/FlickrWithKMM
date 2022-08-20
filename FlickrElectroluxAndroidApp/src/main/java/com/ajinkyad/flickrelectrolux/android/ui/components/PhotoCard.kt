@@ -38,6 +38,8 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
             model = ImageRequest.Builder(context)
                 .data(photoItem.url)
                 .addHeader("Accept-Encoding", "keep-alive")
+                .addHeader("Connection", "gzip, deflate, br")
+                .addHeader("User-Agent", "ImageFetching")
                 .crossfade(true)
                 .memoryCachePolicy(CachePolicy.ENABLED)
                 .diskCachePolicy(CachePolicy.ENABLED)
