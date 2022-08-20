@@ -33,6 +33,8 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("ch.qos.logback:logback-classic:1.2.3")
+                implementation("io.insert-koin:koin-core:3.2.0")
+                implementation("io.insert-koin:koin-test:3.2.0")
             }
         }
         val commonTest by getting {

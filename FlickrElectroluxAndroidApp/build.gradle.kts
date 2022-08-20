@@ -61,4 +61,6 @@ dependencies {
     // Compatible with Compose Material, includes MdcTheme
     implementation("com.google.android.material:compose-theme-adapter:1.1.16")
 
+    implementation("io.insert-koin:koin-android:3.2.0")
+
 }
