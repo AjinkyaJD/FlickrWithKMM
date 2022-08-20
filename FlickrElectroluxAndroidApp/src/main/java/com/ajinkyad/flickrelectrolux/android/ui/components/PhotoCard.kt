@@ -37,7 +37,7 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
         AsyncImage(
             model = ImageRequest.Builder(context)
                 .data(photoItem.url)
-                .addHeader("Accept-Encoding", "keep-alive")
+                .addHeader("Accept-Encoding", "keep-alive") // Flickr kept sending 503 as the network was getting dropped.
                 .addHeader("Connection", "gzip, deflate, br")
                 .addHeader("User-Agent", "ImageFetching")
                 .crossfade(true)
@@ -60,7 +60,7 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .clickable(onClick = {
-                    getImagePathFromCache(
+                    getDrawableFromImageCache(
                         imageLoader,
                         photoItem,
                         tappedPhoto
@@ -72,7 +72,7 @@ fun RenderPhotoCard(photoItem: Photo, tappedPhoto: (Drawable?) -> Unit) {
     }
 }
 
-fun getImagePathFromCache(
+fun getDrawableFromImageCache(
     imageLoader: ImageLoader,
     photoItem: Photo,
     tappedPhoto: (Drawable?) -> Unit

@@ -62,7 +62,7 @@ actual class HttpBaseClient {
                     val exceptionResponse = clientException.response
                     if (exceptionResponse.status == HttpStatusCode.NotFound) {
                         val exceptionResponseText = exceptionResponse.bodyAsText()
-                        throw CustomException(exceptionResponse, exceptionResponseText)
+                        throw CustomException(exceptionResponseText)
                     }
                 }
             }

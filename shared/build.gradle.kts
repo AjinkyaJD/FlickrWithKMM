@@ -23,32 +23,30 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.1.0"
 
         val commonMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("ch.qos.logback:logback-classic:1.2.3")
-                implementation("io.insert-koin:koin-core:3.2.0")
-                implementation("io.insert-koin:koin-test:3.2.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+                implementation(Libs.KTOR_CLIENT)
+                implementation(Libs.KTOR_SERIALIZATION)
+                implementation(Libs.KTOR_CONTENT_NEGOTIATION)
+                implementation(Libs.KTOR_KOTLIN_SERIALIZATION)
+                implementation(Libs.KTOR_LOGGING)
+                implementation(Libs.KOIN_CORE)
+                implementation(Libs.KOIN_TEST)
+                implementation(Libs.COROUTINE_TEST)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("io.ktor:ktor-client-mock:$ktorVersion")
+                implementation(Libs.KTOR_MOCK)
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
-                implementation("io.ktor:ktor-client-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+                implementation(Libs.KTOR_CLIENT_ANDROID)
+                implementation(Libs.KTOR_CLIENT_JSON)
+                implementation(Libs.KTOR_CLIENT_SERIALIZATION)
             }
         }
         val androidTest by getting
