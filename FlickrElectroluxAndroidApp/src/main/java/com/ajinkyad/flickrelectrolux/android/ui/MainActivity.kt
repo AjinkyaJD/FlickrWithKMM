@@ -5,10 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.ajinkyad.flickrelectrolux.android.PhotosViewModel
 import com.google.android.material.composethemeadapter.MdcTheme
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
-    private var photosViewModel = PhotosViewModel()
+    private val photosViewModel: PhotosViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
