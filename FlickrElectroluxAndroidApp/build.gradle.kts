@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -50,7 +52,11 @@ dependencies {
 
     implementation("androidx.compose.runtime:runtime-livedata:1.2.0")
 
+    // Image Loading Library
     implementation("io.coil-kt:coil-compose:2.2.0")
+
+    // Navigation Library
+    implementation("androidx.navigation:navigation-compose:2.5.1")
 
     // Compatible with Compose Material, includes MdcTheme
     implementation("com.google.android.material:compose-theme-adapter:1.1.16")
