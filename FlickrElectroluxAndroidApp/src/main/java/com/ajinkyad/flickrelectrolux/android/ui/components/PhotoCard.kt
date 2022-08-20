@@ -77,7 +77,6 @@ fun getImagePathFromCache(
     photoItem: Photo,
     tappedPhoto: (Drawable?) -> Unit
 ) {
-    // TODO - Handle better to make it fail safe
     val cachedImagePath = imageLoader.diskCache?.get(photoItem.url!!)
     val cachedImageDrawable = Drawable.createFromPath(cachedImagePath?.data.toString())
     return tappedPhoto(cachedImageDrawable)

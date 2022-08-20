@@ -11,14 +11,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-class PhotosViewModel : ViewModel() {
+class PhotosViewModel(val imageApiService: FlickrImageServiceImpl) : ViewModel() {
     private val _queryText = MutableStateFlow("")
     val query: StateFlow<String> = _queryText
 
     private var _photos: MutableLiveData<List<Photo>> = MutableLiveData(ArrayList())
     val photos: LiveData<List<Photo>> = _photos
-
-    var imageApiService = FlickrImageServiceImpl()
 
     init {
         callPhotosList()

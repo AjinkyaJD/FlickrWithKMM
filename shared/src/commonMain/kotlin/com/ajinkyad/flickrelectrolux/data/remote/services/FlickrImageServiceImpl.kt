@@ -6,17 +6,14 @@ import com.ajinkyad.flickrelectrolux.data.remote.base.Failure
 import com.ajinkyad.flickrelectrolux.data.remote.base.Success
 import com.ajinkyad.flickrelectrolux.data.remote.dto.PhotosResponseWrapper
 import com.ajinkyad.flickrelectrolux.domain.entity.Photo
-import com.ajinkyad.flickrelectrolux.shared.HttpBaseClient
 import com.ajinkyad.flickrelectrolux.utils.EndpointConfig
 import com.ajinkyad.flickrelectrolux.utils.QueryParamsKey.METHOD
 import com.ajinkyad.flickrelectrolux.utils.QueryParamsKey.TAGS
+import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 
-class FlickrImageServiceImpl() : FlickrImageService {
-
-    //Create Http Client
-    private var httpClient = HttpBaseClient().httpClient
+class FlickrImageServiceImpl(val httpClient: HttpClient) : FlickrImageService {
 
     override suspend fun fetchPhotos(query: String?): Either<CustomException, List<Photo>?>? {
         return try {
