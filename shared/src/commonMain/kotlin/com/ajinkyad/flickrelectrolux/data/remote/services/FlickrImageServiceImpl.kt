@@ -18,12 +18,13 @@ class FlickrImageServiceImpl() : FlickrImageService {
     //Create Http Client
     private var httpClient = HttpBaseClient().httpClient
 
-    override suspend fun fetchPhotos(): Either<CustomException, List<Photo>?>? {
+    override suspend fun fetchPhotos(query: String?): Either<CustomException, List<Photo>?>? {
         return try {
             val response: List<Photo>? = httpClient.get(EndpointConfig.PHOTOS_SEARCH_URL)
             {
+
                 parameter(METHOD, "flickr.photos.search")
-                parameter(TAGS, "Electrolux")
+                parameter(TAGS, query ?: "Electrolux")
             }
                 .body<PhotosResponseWrapper>().photos?.photo?.filter { photoItem -> !photoItem.url.isNullOrEmpty() }
                 ?.map { it.toPhoto() }
