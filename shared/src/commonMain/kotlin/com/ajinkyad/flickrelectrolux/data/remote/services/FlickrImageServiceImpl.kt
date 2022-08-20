@@ -27,7 +27,9 @@ class FlickrImageServiceImpl(val httpClient: HttpClient) : FlickrImageService {
                 ?.map { it.toPhoto() }
             Success(response)
         } catch (e: Exception) {
-            Failure(e as CustomException)
+            //Typecast the Error Response
+            val exceptionResponse = e.message
+            Failure(CustomException(errorResponse = exceptionResponse))
         }
     }
 

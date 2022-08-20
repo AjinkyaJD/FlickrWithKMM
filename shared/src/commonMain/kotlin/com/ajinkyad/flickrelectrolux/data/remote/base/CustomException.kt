@@ -1,8 +1,6 @@
 package com.ajinkyad.flickrelectrolux.data.remote.base
 
-import io.ktor.client.statement.*
-
-class CustomException(var httpResponse: HttpResponse, var errorResponse: String?) : Exception() {
+class CustomException(var errorResponse: String?) : Exception() {
 
     companion object {
 
