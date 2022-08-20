@@ -6,7 +6,6 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 private const val baseClient = "BaseClient"
-const val flickrImageService = "flickrImageService"
 
 val imagesModule = module {
     single {
