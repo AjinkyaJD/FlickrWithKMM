@@ -10,7 +10,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        // Initiate DI
         startKoin {
             androidContext(this@MainApplication)
             modules(appModule() + androidModule)
